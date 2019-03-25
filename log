@@ -1,0 +1,54 @@
+[1mdiff --git a/db.sqlite3 b/db.sqlite3[m
+[1mindex fb67489..1c1d1e9 100644[m
+Binary files a/db.sqlite3 and b/db.sqlite3 differ
+[1mdiff --git a/mainsite/admin.py b/mainsite/admin.py[m
+[1mindex 13be29d..cab8f39 100644[m
+[1m--- a/mainsite/admin.py[m
+[1m+++ b/mainsite/admin.py[m
+[36m@@ -2,5 +2,7 @@[m
+ from __future__ import unicode_literals[m
+ [m
+ from django.contrib import admin[m
+[32m+[m[32mfrom .models import Post[m
+ [m
+ # Register your models here.[m
+[32m+[m[32madmin.site.register(Post)[m
+\ No newline at end of file[m
+[1mdiff --git a/mainsite/models.py b/mainsite/models.py[m
+[1mindex 1dfab76..ccb4d82 100644[m
+[1m--- a/mainsite/models.py[m
+[1m+++ b/mainsite/models.py[m
+[36m@@ -2,5 +2,18 @@[m
+ from __future__ import unicode_literals[m
+ [m
+ from django.db import models[m
+[32m+[m[32mfrom django.utils import timezone[m
+ [m
+ # Create your models here.[m
+[32m+[m
+[32m+[m[32mclass Post(models.Model):[m
+[32m+[m	[32mtitle = models.CharField(max_length=200)[m
+[32m+[m	[32mslug = models.CharField(max_length=200)[m
+[32m+[m	[32mbody = models.TextField()[m
+[32m+[m	[32mpub_date = models.DateTimeField(default=timezone.now)[m
+[32m+[m
+[32m+[m	[32mclass Meta:[m
+[32m+[m		[32mordering = ('-pub_date',)[m
+[32m+[m[41m	[m
+[32m+[m	[32mdef _unicode_(self):[m
+[32m+[m		[32mreturn self.title[m
+[1mdiff --git a/mblog/settings.py b/mblog/settings.py[m
+[1mindex 75893bb..512125e 100644[m
+[1m--- a/mblog/settings.py[m
+[1m+++ b/mblog/settings.py[m
+[36m@@ -37,6 +37,7 @@[m [mINSTALLED_APPS = [[m
+     'django.contrib.sessions',[m
+     'django.contrib.messages',[m
+     'django.contrib.staticfiles',[m
+[32m+[m[32m    'mainsite',[m
+ ][m
+ [m
+ MIDDLEWARE = [[m
+[1mdiff --git a/mblog/settings.pyc b/mblog/settings.pyc[m
+[1mindex 71f6a32..4c832fe 100644[m
+Binary files a/mblog/settings.pyc and b/mblog/settings.pyc differ
